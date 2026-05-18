@@ -13,11 +13,9 @@ exports.register = async (req, res, next) => {
     }
 
     if (!/^[A-Za-z\s]+$/.test(name) || name.trim().length < 2) {
-      return res
-        .status(400)
-        .json({
-          msg: "Name must be at least 2 characters and contain only letters",
-        });
+      return res.status(400).json({
+        msg: "Name must be at least 2 characters and contain only letters",
+      });
     }
 
     // RFC 5322 email pre-validation: reject leading dots and malformed structures before DB queries
@@ -30,11 +28,9 @@ exports.register = async (req, res, next) => {
     // Enforce strong password complexity rules at the controller level (atleast 8 characters and atleast contain 1 uppercase, 1 lowercase, 1 number, and 1 special character)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     if (!passwordRegex.test(password)) {
-      return res
-        .status(400)
-        .json({
-          msg: "Password must be at least 8 characters and atleast contain 1 uppercase, 1 lowercase, 1 number, and 1 special character",
-        });
+      return res.status(400).json({
+        msg: "Password must be at least 8 characters and atleast contain 1 uppercase, 1 lowercase, 1 number, and 1 special character",
+      });
     }
 
     // Check if user already exists
