@@ -66,7 +66,15 @@ const SharedTripView = () => {
 
   return (
     <Box sx={{ maxWidth: 900, mx: "auto", p: { xs: 2, md: 4 } }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, "@media print": { display: "none" } }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+          "@media print": { display: "none" },
+        }}
+      >
         <Typography
           variant="caption"
           color="text.secondary"
@@ -102,14 +110,14 @@ const SharedTripView = () => {
           component="img"
           src={tripImage}
           alt={trip.destination}
-          sx={{ 
-            width: "100%", 
-            height: "100%", 
+          sx={{
+            width: "100%",
+            height: "100%",
             objectFit: "cover",
             "@media print": {
               maxHeight: "300px",
               borderRadius: "8px",
-            }
+            },
           }}
         />
         <Box
@@ -139,14 +147,14 @@ const SharedTripView = () => {
           <Chip
             label={`${daysCount} days`}
             size="small"
-            sx={{ 
-              mt: 1, 
-              bgcolor: "rgba(255,255,255,0.2)", 
+            sx={{
+              mt: 1,
+              bgcolor: "rgba(255,255,255,0.2)",
               color: "white",
               "@media print": {
                 bgcolor: "grey.200",
                 color: "black",
-              }
+              },
             }}
           />
         </Box>
@@ -190,7 +198,7 @@ const SharedTripView = () => {
                 "@media print": {
                   border: "2px solid #eee",
                   pageBreakInside: "avoid",
-                }
+                },
               }}
             >
               {icon}
@@ -223,7 +231,7 @@ const SharedTripView = () => {
               p: 0,
               mt: 3,
               pageBreakInside: "avoid",
-            }
+            },
           }}
         >
           <Typography variant="subtitle1" fontWeight={700} mb={1}>
