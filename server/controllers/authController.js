@@ -7,10 +7,9 @@ const {
   getOtpEmailTemplate,
 } = require("../utils/emailTemplates");
 
-// google signup 
-const {OAuth2Client} = require("google-auth-library");
+// google signup
+const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
 
 // Register a new user
 exports.register = async (req, res, next) => {
@@ -116,19 +115,16 @@ exports.login = async (req, res, next) => {
 
 // google signup
 
- exports.googleAuth = async(req,res)=>{
-  try{
+exports.googleAuth = async (req, res) => {
+  try {
+    const { credential } = req.body;
 
- 
-    const {credential} = req.body;
-  
-
-    if(!credential){
-      return res.status(400).json({message: "Credential is required!!"});
+    if (!credential) {
+      return res.status(400).json({ message: "Credential is required!!" });
     }
 
     const ticket = await client.verifyIdToken({
-      idToken:credential,
+      idToken: credential,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
@@ -136,20 +132,19 @@ exports.login = async (req, res, next) => {
     const email = payload.email;
     const name = payload.name;
 
-
-    let user = await User.findOne({email});
-    if(!user){
+    let user = await User.findOne({ email });
+    if (!user) {
       user = await User.create({
         name,
         email,
-        authProvider:"google",
-        isVerified:true,
+        authProvider: "google",
+        isVerified: true,
       });
     }
 
-     const token = jwt.sign(
+    const token = jwt.sign(
       {
-        id:user._id,
+        id: user._id,
         email: user.email,
       },
       process.env.JWT_SECRET,
@@ -162,15 +157,15 @@ exports.login = async (req, res, next) => {
         });
       },
     );
-  }catch(e){
+  } catch (e) {
     console.log(e);
 
     return res.status(500).json({
       Sucess: false,
-      Message:"Google Authentication failed",
-    })
+      Message: "Google Authentication failed",
+    });
   }
-}
+};
 // Get user profile
 exports.getProfile = async (req, res, next) => {
   try {

@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required:function(){
+    required: function () {
       return this.authProvider === "local";
     },
     // Strong password complexity: min 8 chars, >=1 uppercase, >=1 lowercase, >=1 number, >=1 special char
@@ -34,10 +34,10 @@ const UserSchema = new mongoose.Schema({
       "Password must include atleast 1 uppercase, 1 lowercase, 1 number, and 1 special character",
     ],
   },
-  authProvider:{
-    type:String,
-    enum:["local","google"],
-    default:"local",
+  authProvider: {
+    type: String,
+    enum: ["local", "google"],
+    default: "local",
   },
   date: {
     type: Date,
