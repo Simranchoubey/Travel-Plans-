@@ -557,30 +557,29 @@ git push origin feature/your-amazing-feature
 
 ---
 
-## 🌟 Contributors
+## 💖 Contributors
 
-<div align="center">
+Thanks to all the amazing people who contribute to **Travel-Plans** 🚀
 
-Thanks to these amazing people who have contributed to **PackGo** ✨
+<p align="center">
+  <a href="https://github.com/hitesh-kumar123/Travel-Plans-/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=hitesh-kumar123/Travel-Plans-" alt="Contributors"/>
+  </a>
+</p>
 
-[![Contributors](https://contrib.rocks/image?repo=hitesh-kumar123/Travel-Plans-)](https://github.com/hitesh-kumar123/Travel-Plans-/graphs/contributors)
+<br>
 
-</div>
+## ⭐ Project Support
 
----
-
-## 📊 Project Support
-
-<div align="center">
-
-[![GitHub Stars](https://img.shields.io/github/stars/hitesh-kumar123/Travel-Plans-?style=for-the-badge&logo=github&label=Stars&color=yellow)](https://github.com/hitesh-kumar123/Travel-Plans-/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/hitesh-kumar123/Travel-Plans-?style=for-the-badge&logo=github&label=Forks&color=blue)](https://github.com/hitesh-kumar123/Travel-Plans-/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/hitesh-kumar123/Travel-Plans-?style=for-the-badge&logo=github&label=Issues&color=red)](https://github.com/hitesh-kumar123/Travel-Plans-/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/hitesh-kumar123/Travel-Plans-?style=for-the-badge&logo=github&label=PRs&color=brightgreen)](https://github.com/hitesh-kumar123/Travel-Plans-/pulls)
-
-⭐ **Star this repo to show your support and help others discover PackGo!** ⭐
-
-</div>
+<p align="center">
+  <a href="https://github.com/hitesh-kumar123/Travel-Plans-/stargazers">
+    <img src="https://img.shields.io/github/stars/hitesh-kumar123/Travel-Plans-?style=social" alt="Stars">
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/hitesh-kumar123/Travel-Plans-/network/members">
+    <img src="https://img.shields.io/github/forks/hitesh-kumar123/Travel-Plans-?style=social" alt="Forks">
+  </a>
+</p>
 
 ---
 
