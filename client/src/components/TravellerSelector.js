@@ -109,11 +109,19 @@ const TravellerSelector = ({ travellers, onChange }) => {
                 justifyContent: "space-between",
                 padding: "10px 0",
                 borderBottom:
-                  type.key !== "infants" ? "1px solid rgba(15,45,64,0.08)" : "none",
+                  type.key !== "infants"
+                    ? "1px solid rgba(15,45,64,0.08)"
+                    : "none",
               }}
             >
               <div>
-                <div style={{ fontWeight: 600, fontSize: "0.95rem", color: "#1A4A6B" }}>
+                <div
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                    color: "#1A4A6B",
+                  }}
+                >
                   {type.label}
                 </div>
                 <div style={{ fontSize: "0.78rem", color: "#6B8499" }}>
