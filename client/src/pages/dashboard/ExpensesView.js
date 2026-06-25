@@ -579,7 +579,7 @@ const ExpensesView = () => {
       {/* Financial Status Summary */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {/* Total Spent Card */}
-        <Grid xs={12} sm={4}>
+        <Grid item xs={12} sm={4}>
           <Paper
             elevation={0}
             sx={{
@@ -622,7 +622,7 @@ const ExpensesView = () => {
         </Grid>
 
         {/* Budget Card */}
-        <Grid xs={12} sm={4}>
+        <Grid item xs={12} sm={4}>
           <Paper
             elevation={0}
             sx={{
@@ -654,7 +654,7 @@ const ExpensesView = () => {
         </Grid>
 
         {/* Remaining Card */}
-        <Grid xs={12} sm={4}>
+        <Grid item xs={12} sm={4}>
           <Paper
             elevation={0}
             sx={{
@@ -740,397 +740,441 @@ const ExpensesView = () => {
       </Grid>
 
       {/* Main Analytics Area */}
-      <Grid container spacing={4}>
-        {/* Expenses List & Filter Card */}
-        <Grid xs={12} md={7.5}>
-          <Paper
-            elevation={0}
-            sx={{
-              borderRadius: 4,
-              border: "1px solid",
-              borderColor: "rgba(224, 224, 224, 0.6)",
-              overflow: "hidden",
-              boxShadow: "0 12px 32px -12px rgba(0,0,0,0.04)",
-            }}
+      {!expenses || expenses.length === 0 ? (
+        <Paper
+          sx={{
+            p: { xs: 4, md: 6 },
+            textAlign: "center",
+            borderRadius: 4,
+            border: "2px dashed",
+            borderColor: "divider",
+            mb: 4,
+          }}
+          elevation={0}
+        >
+          <WalletIcon sx={{ fontSize: 56, color: "text.disabled", mb: 2 }} />
+          <Typography variant="h6" color="text.primary" gutterBottom>
+            No expenses yet!
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            Log your first expense.
+          </Typography>
+          <PrimaryButton
+            startIcon={<AddIcon />}
+            onClick={() => setOpen(true)}
+            disabled={!activeTripId}
           >
-            <Box
+            Add Expense
+          </PrimaryButton>
+        </Paper>
+      ) : (
+        <Grid container spacing={4}>
+          {/* Expenses List & Filter Card */}
+          <Grid item xs={12} md={7.5}>
+            <Paper
+              elevation={0}
               sx={{
-                p: 3,
-                borderBottom: "1px solid",
+                borderRadius: 4,
+                border: "1px solid",
                 borderColor: "rgba(224, 224, 224, 0.6)",
-                display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
-                justifyContent: "space-between",
-                alignItems: { xs: "stretch", sm: "center" },
-                gap: 2,
-                background: "rgba(255, 255, 255, 0.5)",
+                overflow: "hidden",
+                boxShadow: "0 12px 32px -12px rgba(0,0,0,0.04)",
               }}
             >
-              <Typography variant="h6" fontWeight={800} color="text.primary">
-                Ledger Records
-              </Typography>
+              <Box
+                sx={{
+                  p: 3,
+                  borderBottom: "1px solid",
+                  borderColor: "rgba(224, 224, 224, 0.6)",
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  justifyContent: "space-between",
+                  alignItems: { xs: "stretch", sm: "center" },
+                  gap: 2,
+                  background: "rgba(255, 255, 255, 0.5)",
+                }}
+              >
+                <Typography variant="h6" fontWeight={800} color="text.primary">
+                  Ledger Records
+                </Typography>
 
-              {/* Filters */}
-              <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
-                <TextField
-                  placeholder="Search..."
-                  size="small"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon
-                            sx={{ color: "text.disabled", fontSize: 20 }}
-                          />
-                        </InputAdornment>
-                      ),
-                      style: { borderRadius: 10 },
-                    },
-                  }}
-                  sx={{ width: { xs: "100%", sm: 160 } }}
-                />
-                <TextField
-                  select
-                  size="small"
-                  value={filterCategory}
-                  onChange={(e) => setFilterCategory(e.target.value)}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <FilterListIcon
-                            sx={{ color: "text.disabled", fontSize: 18 }}
-                          />
-                        </InputAdornment>
-                      ),
-                      style: { borderRadius: 10 },
-                    },
-                  }}
-                  sx={{ width: { xs: "100%", sm: 140 } }}
-                >
-                  <MenuItem value="All">All Categories</MenuItem>
-                  {EXPENSE_CATEGORIES.map((c) => (
-                    <MenuItem key={c} value={c}>
-                      {c}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {/* Filters */}
+                <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
+                  <TextField
+                    placeholder="Search..."
+                    size="small"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchIcon
+                              sx={{ color: "text.disabled", fontSize: 20 }}
+                            />
+                          </InputAdornment>
+                        ),
+                        style: { borderRadius: 10 },
+                      },
+                    }}
+                    sx={{ width: { xs: "100%", sm: 160 } }}
+                  />
+                  <TextField
+                    select
+                    size="small"
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <FilterListIcon
+                              sx={{ color: "text.disabled", fontSize: 18 }}
+                            />
+                          </InputAdornment>
+                        ),
+                        style: { borderRadius: 10 },
+                      },
+                    }}
+                    sx={{ width: { xs: "100%", sm: 140 } }}
+                  >
+                    <MenuItem value="All">All Categories</MenuItem>
+                    {EXPENSE_CATEGORIES.map((c) => (
+                      <MenuItem key={c} value={c}>
+                        {c}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
               </Box>
-            </Box>
 
-            <TableContainer sx={{ maxHeight: 420 }}>
-              <Table stickyHeader>
-                <TableHead>
-                  <TableRow>
-                    <TableCell
-                      sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
-                    >
-                      Date
-                    </TableCell>
-                    <TableCell
-                      sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
-                    >
-                      Category
-                    </TableCell>
-                    <TableCell
-                      sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
-                    >
-                      Description
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
-                    >
-                      Amount
-                    </TableCell>
-                    <TableCell align="center" sx={{ py: 2 }} />
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {loading ? (
+              <TableContainer sx={{ maxHeight: 420 }}>
+                <Table stickyHeader>
+                  <TableHead>
                     <TableRow>
-                      <TableCell colSpan={5} align="center" sx={{ py: 6 }}>
-                        <CircularProgress size={32} />
-                      </TableCell>
-                    </TableRow>
-                  ) : filteredExpenses.length > 0 ? (
-                    filteredExpenses.map((expense) => (
-                      <TableRow
-                        key={expense._id}
-                        hover
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
+                      <TableCell
+                        sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
                       >
-                        <TableCell sx={{ whiteSpace: "nowrap", py: 2 }}>
-                          {new Date(expense.date).toLocaleDateString("en-IN", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          })}
+                        Date
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
+                      >
+                        Category
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
+                      >
+                        Description
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{ fontWeight: 700, color: "text.secondary", py: 2 }}
+                      >
+                        Amount
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 2 }} />
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell colSpan={5} align="center" sx={{ py: 6 }}>
+                          <CircularProgress size={32} />
                         </TableCell>
-                        <TableCell sx={{ py: 1.5 }}>
-                          <Chip
-                            label={expense.category}
-                            size="small"
-                            sx={{
-                              bgcolor:
-                                (CATEGORY_COLORS[expense.category] ||
-                                  "#9e9e9e") + "18",
-                              color:
-                                CATEGORY_COLORS[expense.category] || "#9e9e9e",
-                              fontWeight: 700,
-                              borderRadius: 1.5,
-                              fontSize: "0.75rem",
-                              border: "1px solid",
-                              borderColor:
-                                (CATEGORY_COLORS[expense.category] ||
-                                  "#9e9e9e") + "30",
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell
-                          sx={{ color: "text.primary", fontWeight: 500, py: 2 }}
+                      </TableRow>
+                    ) : filteredExpenses.length > 0 ? (
+                      filteredExpenses.map((expense) => (
+                        <TableRow
+                          key={expense._id}
+                          hover
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
                         >
-                          {expense.description || "—"}
-                        </TableCell>
-                        <TableCell align="right" sx={{ fontWeight: 700 }}>
-                          {CURRENCY_SYMBOLS[expense.currency] ||
-                            expense.currency}
-                          {expense.amount.toLocaleString()}
-                          {expense.currency !== baseCurrency && (
-                            <Typography
-                              variant="caption"
-                              display="block"
-                              color="text.secondary"
+                          <TableCell sx={{ whiteSpace: "nowrap", py: 2 }}>
+                            {new Date(expense.date).toLocaleDateString(
+                              "en-IN",
+                              {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              },
+                            )}
+                          </TableCell>
+                          <TableCell sx={{ py: 1.5 }}>
+                            <Chip
+                              label={expense.category}
+                              size="small"
+                              sx={{
+                                bgcolor:
+                                  (CATEGORY_COLORS[expense.category] ||
+                                    "#9e9e9e") + "18",
+                                color:
+                                  CATEGORY_COLORS[expense.category] ||
+                                  "#9e9e9e",
+                                fontWeight: 700,
+                                borderRadius: 1.5,
+                                fontSize: "0.75rem",
+                                border: "1px solid",
+                                borderColor:
+                                  (CATEGORY_COLORS[expense.category] ||
+                                    "#9e9e9e") + "30",
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              color: "text.primary",
+                              fontWeight: 500,
+                              py: 2,
+                            }}
+                          >
+                            {expense.description || "—"}
+                          </TableCell>
+                          <TableCell align="right" sx={{ fontWeight: 700 }}>
+                            {CURRENCY_SYMBOLS[expense.currency] ||
+                              expense.currency}
+                            {expense.amount.toLocaleString()}
+                            {expense.currency !== baseCurrency && (
+                              <Typography
+                                variant="caption"
+                                display="block"
+                                color="text.secondary"
+                              >
+                                ≈ {currencySymbol}
+                                {parseFloat(
+                                  toBase(expense.amount, expense.currency),
+                                ).toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                              </Typography>
+                            )}
+                          </TableCell>
+                          <TableCell align="center" sx={{ py: 1.5 }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 1,
+                                justifyContent: "center",
+                              }}
                             >
-                              ≈ {currencySymbol}
-                              {parseFloat(
-                                toBase(expense.amount, expense.currency),
-                              ).toLocaleString(undefined, {
-                                maximumFractionDigits: 2,
-                              })}
-                            </Typography>
-                          )}
-                        </TableCell>
-                        <TableCell align="center" sx={{ py: 1.5 }}>
+                              <Tooltip title="Edit Expense">
+                                <IconButton
+                                  size="small"
+                                  sx={{
+                                    color: "primary.main",
+                                    bgcolor: "rgba(63, 81, 181, 0.05)",
+                                    "&:hover": {
+                                      bgcolor: "rgba(63, 81, 181, 0.15)",
+                                    },
+                                    borderRadius: 2,
+                                  }}
+                                  onClick={() => handleEditClick(expense)}
+                                >
+                                  <EditIcon fontSize="small" />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title="Delete Expense">
+                                <IconButton
+                                  size="small"
+                                  sx={{
+                                    color: "error.main",
+                                    bgcolor: "rgba(245, 101, 101, 0.05)",
+                                    "&:hover": {
+                                      bgcolor: "rgba(245, 101, 101, 0.15)",
+                                    },
+                                    borderRadius: 2,
+                                  }}
+                                  onClick={() => handleDelete(expense._id)}
+                                >
+                                  <DeleteIcon fontSize="small" />
+                                </IconButton>
+                              </Tooltip>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={5} align="center" sx={{ py: 8 }}>
                           <Box
                             sx={{
                               display: "flex",
-                              gap: 1,
-                              justifyContent: "center",
+                              flexDirection: "column",
+                              gap: 1.5,
+                              alignItems: "center",
                             }}
                           >
-                            <Tooltip title="Edit Expense">
-                              <IconButton
-                                size="small"
-                                sx={{
-                                  color: "primary.main",
-                                  bgcolor: "rgba(63, 81, 181, 0.05)",
-                                  "&:hover": {
-                                    bgcolor: "rgba(63, 81, 181, 0.15)",
-                                  },
-                                  borderRadius: 2,
-                                }}
-                                onClick={() => handleEditClick(expense)}
-                              >
-                                <EditIcon fontSize="small" />
-                              </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Delete Expense">
-                              <IconButton
-                                size="small"
-                                sx={{
-                                  color: "error.main",
-                                  bgcolor: "rgba(245, 101, 101, 0.05)",
-                                  "&:hover": {
-                                    bgcolor: "rgba(245, 101, 101, 0.15)",
-                                  },
-                                  borderRadius: 2,
-                                }}
-                                onClick={() => handleDelete(expense._id)}
-                              >
-                                <DeleteIcon fontSize="small" />
-                              </IconButton>
-                            </Tooltip>
+                            <WalletIcon
+                              sx={{
+                                fontSize: 44,
+                                color: "text.disabled",
+                                opacity: 0.6,
+                              }}
+                            />
+                            <Typography
+                              variant="body1"
+                              color="text.secondary"
+                              fontWeight={500}
+                            >
+                              No ledger records match filters
+                            </Typography>
+                            <Typography variant="caption" color="text.disabled">
+                              Try broadening your search criteria or adding a
+                              new expense
+                            </Typography>
                           </Box>
                         </TableCell>
                       </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={5} align="center" sx={{ py: 8 }}>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          </Grid>
+
+          {/* Pie Chart */}
+          <Grid item xs={12} md={5}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 4,
+                borderRadius: 3,
+                border: "1px solid",
+                borderColor: "divider",
+                boxSizing: "border-box",
+                alignSelf: "flex-start",
+              }}
+            >
+              <Typography
+                variant="subtitle1"
+                fontWeight={800}
+                mb={3}
+                color="text.primary"
+              >
+                Spending Allocation
+              </Typography>
+              {chartData.length > 0 ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 3,
+                  }}
+                >
+                  <Box sx={{ flex: 1, minWidth: 180, width: 0 }}>
+                    <ResponsiveContainer width="100%" height={240}>
+                      <PieChart
+                        margin={{ top: 15, right: 15, bottom: 15, left: 30 }}
+                      >
+                        <Pie
+                          data={chartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={55}
+                          outerRadius={80}
+                          paddingAngle={4}
+                          dataKey="value"
+                        >
+                          {chartData.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={CATEGORY_COLORS[entry.name] || "#8884d8"}
+                            />
+                          ))}
+                        </Pie>
+                        <ReTooltip
+                          formatter={(value) => [
+                            `${currencySymbol}${value.toLocaleString()}`,
+                            "",
+                          ]}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </Box>
+                  {/* Custom Legend */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 0.75,
+                      alignSelf: "center",
+                      pl: 1,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {chartData.map((entry) => (
+                      <Box
+                        key={entry.name}
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         <Box
                           sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 1.5,
-                            alignItems: "center",
+                            width: 15,
+                            height: 15,
+                            borderRadius: "3px",
+                            bgcolor: CATEGORY_COLORS[entry.name] || "#8884d8",
+                            flexShrink: 0,
                           }}
+                        />
+                        <Typography
+                          variant="body2"
+                          sx={{ whiteSpace: "nowrap" }}
                         >
-                          <WalletIcon
-                            sx={{
-                              fontSize: 44,
-                              color: "text.disabled",
-                              opacity: 0.6,
-                            }}
-                          />
-                          <Typography
-                            variant="body1"
-                            color="text.secondary"
-                            fontWeight={500}
-                          >
-                            No ledger records match filters
-                          </Typography>
-                          <Typography variant="caption" color="text.disabled">
-                            Try broadening your search criteria or adding a new
-                            expense
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </Grid>
-
-        {/* Pie Chart */}
-        <Grid xs={12} md={5}>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 4,
-              borderRadius: 3,
-              border: "1px solid",
-              borderColor: "divider",
-              boxSizing: "border-box",
-              alignSelf: "flex-start",
-            }}
-          >
-            <Typography
-              variant="subtitle1"
-              fontWeight={800}
-              mb={3}
-              color="text.primary"
-            >
-              Spending Allocation
-            </Typography>
-            {chartData.length > 0 ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 3,
-                }}
-              >
-                <Box sx={{ flex: 1, minWidth: 180, width: 0 }}>
-                  <ResponsiveContainer width="100%" height={240}>
-                    <PieChart
-                      margin={{ top: 15, right: 15, bottom: 15, left: 30 }}
-                    >
-                      <Pie
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={55}
-                        outerRadius={80}
-                        paddingAngle={4}
-                        dataKey="value"
-                      >
-                        {chartData.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={CATEGORY_COLORS[entry.name] || "#8884d8"}
-                          />
-                        ))}
-                      </Pie>
-                      <ReTooltip
-                        formatter={(value) => [
-                          `${currencySymbol}${value.toLocaleString()}`,
-                          "",
-                        ]}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
+                          {entry.name}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
-                {/* Custom Legend */}
+              ) : (
                 <Box
                   sx={{
                     display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: 120,
                     flexDirection: "column",
-                    gap: 0.75,
-                    alignSelf: "center",
-                    pl: 1,
-                    flexShrink: 0,
+                    gap: 1.5,
                   }}
                 >
-                  {chartData.map((entry) => (
-                    <Box
-                      key={entry.name}
-                      sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                    >
-                      <Box
-                        sx={{
-                          width: 15,
-                          height: 15,
-                          borderRadius: "3px",
-                          bgcolor: CATEGORY_COLORS[entry.name] || "#8884d8",
-                          flexShrink: 0,
-                        }}
-                      />
-                      <Typography variant="body2" sx={{ whiteSpace: "nowrap" }}>
-                        {entry.name}
-                      </Typography>
-                    </Box>
-                  ))}
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: "50%",
+                      bgcolor: "grey.50",
+                      border: "2px dashed",
+                      borderColor: "grey.200",
+                      display: "flex",
+                    }}
+                  >
+                    <WalletIcon
+                      sx={{
+                        fontSize: 32,
+                        color: "text.disabled",
+                        opacity: 0.6,
+                      }}
+                    />
+                  </Box>
+                  <Typography color="text.secondary" fontWeight={500}>
+                    Insufficient spending data
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.disabled"
+                    align="center"
+                    sx={{ maxWidth: 200 }}
+                  >
+                    Add a transaction to generate real-time financial charts
+                  </Typography>
                 </Box>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 120,
-                  flexDirection: "column",
-                  gap: 1.5,
-                }}
-              >
-                <Box
-                  sx={{
-                    p: 2,
-                    borderRadius: "50%",
-                    bgcolor: "grey.50",
-                    border: "2px dashed",
-                    borderColor: "grey.200",
-                    display: "flex",
-                  }}
-                >
-                  <WalletIcon
-                    sx={{ fontSize: 32, color: "text.disabled", opacity: 0.6 }}
-                  />
-                </Box>
-                <Typography color="text.secondary" fontWeight={500}>
-                  Insufficient spending data
-                </Typography>
-                <Typography
-                  variant="caption"
-                  color="text.disabled"
-                  align="center"
-                  sx={{ maxWidth: 200 }}
-                >
-                  Add a transaction to generate real-time financial charts
-                </Typography>
-              </Box>
-            )}
-          </Paper>
+              )}
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
 
       {/* Add Expense Dialog */}
       <Dialog

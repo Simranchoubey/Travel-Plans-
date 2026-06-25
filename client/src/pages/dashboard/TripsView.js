@@ -295,7 +295,7 @@ const TripsView = () => {
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {loading ? (
           Array.from({ length: 3 }).map((_, i) => (
-            <Grid xs={12} md={6} lg={4} key={i}>
+            <Grid item xs={12} md={6} lg={4} key={i}>
               <Paper sx={{ height: 280, borderRadius: 4 }} elevation={0} />
             </Grid>
           ))
@@ -463,10 +463,10 @@ const TripsView = () => {
             }}
           />
         ) : (
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Paper
               sx={{
-                p: 6,
+                p: { xs: 4, md: 6 },
                 textAlign: "center",
                 borderRadius: 4,
                 border: "2px dashed",
@@ -477,15 +477,17 @@ const TripsView = () => {
               <FlightTakeoffIcon
                 sx={{ fontSize: 56, color: "text.disabled", mb: 2 }}
               />
-              <Typography variant="h6" color="text.secondary" gutterBottom>
+              <Typography variant="h6" color="text.primary" gutterBottom>
                 {filter === "all" ? "No trips yet!" : `No ${filter} trips`}
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                Create your first adventure.
               </Typography>
               <PrimaryButton
                 startIcon={<AddIcon />}
                 onClick={() => setOpen(true)}
-                sx={{ mt: 1 }}
               >
-                Plan Your First Trip
+                Create Trip
               </PrimaryButton>
             </Paper>
           </Grid>
