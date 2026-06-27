@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -55,6 +55,7 @@ const TripsView = () => {
   const [filter, setFilter] = useState("all");
   const [options, setOptions] = useState([]);
   const [loadingOpts, setLoadingOpts] = useState(false);
+  const destinationInputRef = useRef(null);
 
   useEffect(() => {
     dispatch(getTrips());
@@ -117,6 +118,18 @@ const TripsView = () => {
       ? trips
       : trips.filter((t) => t.status === filter)
     : [];
+
+  useEffect(() => {
+    if (open) {
+      const timer = setTimeout(() => {
+        destinationInputRef.current?.focus();
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [open]);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -191,6 +204,7 @@ const TripsView = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
+                  inputRef={destinationInputRef}
                   label="Destination *"
                   name="destination"
                   slotProps={{
