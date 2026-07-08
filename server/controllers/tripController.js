@@ -73,10 +73,31 @@ exports.createTrip = async (req, res) => {
 // Get all trips for a user
 exports.getUserTrips = async (req, res) => {
   try {
-    const trips = await Trip.find({ user: req.user.id }).sort({
-      startDate: -1,
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit) || 10);
+    const skip = (page - 1) * limit;
+
+    const [trips, total] = await Promise.all([
+      Trip.find({ user: req.user.id })
+        .sort({ startDate: -1 })
+        .skip(skip)
+        .limit(limit),
+      Trip.countDocuments({ user: req.user.id }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+
+    res.json({
+      data: trips,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
     });
-    res.json(trips);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
