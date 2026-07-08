@@ -15,6 +15,8 @@ router.post("/register", requireDb, authController.register);
 // @access  Public
 router.post("/login", requireDb, authController.login);
 
+router.get("/verify-email/:token", authController.verifyEmail);
+
 // @route   GET api/auth/profile
 // @desc    Get user profile
 // @access  Private
@@ -54,5 +56,6 @@ router.post("/forgot-password", requireDb, authController.forgotPassword);
 // @desc    Reset password
 // @access  Public
 router.put("/reset-password/:token", requireDb, authController.resetPassword);
+
 
 module.exports = router;
