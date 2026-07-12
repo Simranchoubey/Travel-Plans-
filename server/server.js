@@ -118,9 +118,43 @@ if (!process.env.MONGO_URI) {
     "MONGO_URI is missing — set it in server/.env before using auth.",
   );
 }
-if (!process.env.JWT_SECRET) {
-  console.error("JWT_SECRET is missing — login and register will fail.");
+
+const MIN_JWT_SECRET_LENGTH = 32;
+const WEAK_JWT_SECRETS = new Set([
+  "secret",
+  "password",
+  "jwt_secret",
+  "your_super_secret_jwt_key_here",
+  "mysecret",
+  "changeme",
+  "123456",
+]);
+
+function validateJwtSecret() {
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    console.error("JWT_SECRET is missing. Generate one with:");
+    console.error(
+      "  node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
+    );
+    process.exit(1);
+  }
+
+  if (secret.length < MIN_JWT_SECRET_LENGTH) {
+    console.error(
+      `JWT_SECRET is too short (${secret.length} chars). Minimum is ${MIN_JWT_SECRET_LENGTH}.`,
+    );
+    process.exit(1);
+  }
+
+  if (WEAK_JWT_SECRETS.has(secret.toLowerCase())) {
+    console.error("JWT_SECRET is a known weak value. Choose a random one.");
+    process.exit(1);
+  }
 }
+
+validateJwtSecret();
 
 // Connect to MongoDB
 mongoose
