@@ -1354,51 +1354,11 @@ const ExpensesView = () => {
                         Add a transaction to generate real-time financial charts
                       </Typography>
                     </Box>
-                  ))}
-                </Box>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 120,
-                  flexDirection: "column",
-                  gap: 1.5,
-                  mt: 1.5,
-                }}
-              >
-                <Box
-                  sx={{
-                    p: 2,
-                    borderRadius: "50%",
-                    bgcolor: "grey.50",
-                    border: "2px dashed",
-                    borderColor: "grey.200",
-                    display: "flex",
-                  }}
-                >
-                  <WalletIcon
-                    sx={{ fontSize: 32, color: "text.disabled", opacity: 0.6 }}
-                  />
-                </Box>
-                <Typography color="text.secondary" fontWeight={500}>
-                  Insufficient spending data
-                </Typography>
-                <Typography
-                  variant="caption"
-                  color="text.disabled"
-                  align="center"
-                  sx={{ maxWidth: 200 }}
-                >
-                  Add a transaction to generate real-time financial charts
-                </Typography>
-              </Box>
-            )}
-          </Paper>
-        </Grid>
-      </Grid>
+                  )}
+                </Paper>
+              </Grid>
+            </Grid>
+          )}
 
       {/* Add Expense Dialog */}
       <Dialog
@@ -1579,6 +1539,8 @@ const ExpensesView = () => {
           </Button>
         </DialogActions>
       </Dialog>
+        </>
+      )}
     </Box>
   );
 };
